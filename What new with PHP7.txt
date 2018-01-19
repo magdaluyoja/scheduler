@@ -1,0 +1,88 @@
+<?php 
+1. Performance - uses next generation engine developed by PHP core team and a replacement for the traditional zend engine.
+2. Site speed – PHP 7 can handle uncached hits 2-3x faster than on PHP 5.5
+3. Scalar declarations - 1+2 and '1'+'2' will both have 3 as a result. With scalar declations, strict mode will be implemented giving error to '1'+'2'.
+	declare(script_type = 1);
+4. Return type declarations – You can now specify return type variables with PHP 7.
+	function add(int $a, int $b): int{
+		return (string)($a+$b);
+	}
+
+	with declare(script_type = 1);, the above code will have error.
+	
+5. Anonymous Class - classes can be assigned to a variable.
+
+	$foo = new class {
+		public function foo(){
+			return "bar";
+		}
+	}
+
+6. Closure::call()
+	class Foo{
+		private $foo = "bar";
+	} 
+	$getFooCallback = function(){
+		return $this->foo;
+	}
+	
+	echo $getFooCallback->call(new Foo);
+
+
+7. Generation Delegation
+
+	function gen(){
+		yield 1;
+		yield 2;
+		yield from gen2();
+	}
+	function gen2(){
+		yield 3;
+		yield 4;
+	}
+
+	foreach (gen() as $val) {
+		echo $val; //displays 1 2 3 4
+	}
+
+8. Generator return expressions
+	$gen = (function(){
+		yield 1;
+		yield 2;
+
+		return 3;
+	})();
+
+	foreach ($gen as $val]) {
+		echo $val; //displays 1 2
+	}
+
+	echo $gen->getReturn(); //displays 3
+
+9. Null coalesce operator
+
+	$array = ['foo'=>'bar'];
+	
+	//php5 styles
+	$message = isset($array['foo'] ? $array['foo'] : 'not set');
+
+	//php7 
+	$message = $array['foo']??'not set';
+
+10. spaceship operator <=>. if values are equal 0 is returned, if val1 is < val2,= -1 is returned, if val1 > val2 1 is returned.
+
+
+11. Throwable interface, error as throwable
+
+12. dirname() levels:
+
+	echo dirname('/user/local/bin'); // /displays/user/local 
+	echo dirname('/user/local/bin', 1); // /displays/user/local 
+	echo dirname('/user/local/bin', 2); // /displays 
+	echo dirname('/user/local/bin', 3); // /
+
+13. integer division function intdiv(): performs division and gets the whole number value.
+
+14. Uniform variable syntax - left to right implemenntation of variables
+
+	
